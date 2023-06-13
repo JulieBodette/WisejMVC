@@ -1,10 +1,9 @@
-﻿using Dapper;
+﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
-using System.Configuration;
-using System.Security.Cryptography;
-using Wisej.Web;
+using Dapper;
 
 namespace WisejMVC
 {
@@ -24,20 +23,20 @@ namespace WisejMVC
 		}
 
 		//get the database connection string
-		//THIS CODE DOES NOT WORK
-		//public static string CnnVal(string name)
-		//{
-		//	return ConfigurationManager.ConnectionStrings[name].ConnectionString;
-		//}
+		public static string CnnVal(string name)
+		{
+			//return ConfigurationManager.ConnectionStrings[name].ConnectionString;
+			return "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=StudentData;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+		}
 
-		//public List<StudentModel> GetStudents()
-		//{
-		//	using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(StudentController.CnnVal("Students")))
-		//	{
-		//		//using SQL query sent in by text
-		//		var output = connection.Query<StudentModel>("select * from Students").ToList();
-		//		return output;
-		//	}
-		//}
+		public List<StudentModel> GetStudents()
+		{
+			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(StudentController.CnnVal("Students")))
+			{
+				//using SQL query sent in by text
+				var output = connection.Query<StudentModel>("select * from Students").ToList();
+				return output;
+			}
+		}
 	}
 }
